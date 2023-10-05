@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-03T00:24:27.424507+00:00",
+  "timestamp": "2023-10-05T00:24:20.189384+00:00",
   "repo": "vcstuff/oid4vc-haip-sd-jwt-vc",
   "labels": [
     {
@@ -1339,6 +1339,22 @@
       "updatedAt": "2023-09-28T17:22:34Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 64,
+      "id": "I_kwDOJcWsFs5y2vSJ",
+      "title": "term \"wallet\" needs to be addred to the terminology.",
+      "url": "https://github.com/vcstuff/oid4vc-haip-sd-jwt-vc/issues/64",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "A place to point to is probably https://openid.github.io/OpenID4VCI/openid-4-verifiable-credential-issuance-1_0.html#section-2-3.30",
+      "createdAt": "2023-10-04T20:45:02Z",
+      "updatedAt": "2023-10-04T20:45:02Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -2251,13 +2267,13 @@
       "labels": [],
       "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses # 51<!-- Issue # here -->\r\n\r\n## \ud83d\udcd1 Description\r\n<!-- Add a brief description of the pr -->\r\nThis PR adds a Wallet Attestation scheme to the spec. \r\n\r\n## Preview Link\r\n\r\n<!-- Update the link below to provide reviewers with a convenient link to view a rendered version of the PR-->\r\n<!-- In general the link should be of the form https://github.com/<repo-name>/<branch-name>/<draft-name>.html-->\r\n\r\n[click here for rendered preview of PR](https://vcstuff.github.io/oid4vc-haip-sd-jwt-vc/wallet-attestation/draft-oid4vc-haip-sd-jwt-vc.html)",
       "createdAt": "2023-07-07T08:59:59Z",
-      "updatedAt": "2023-09-28T17:32:13Z",
+      "updatedAt": "2023-10-04T22:07:05Z",
       "baseRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "46d2332b3d86e9125c876e84adea0836952ccb15",
       "headRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
       "headRefName": "wallet-attestation",
-      "headRefOid": "d9e263c2f64e7a052cc451d7abfcd586a98e6ad5",
+      "headRefOid": "1ae5b3317d8b849fc7305505bc8581a1242db039",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -3372,6 +3388,112 @@
               "updatedAt": "2023-09-28T17:32:13Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5iyLkC",
+          "commit": {
+            "abbreviatedOid": "d9e263c"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-04T11:39:18Z",
+          "updatedAt": "2023-10-04T11:41:02Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "```suggestion\r\n* `user_authentication`: OPTIONAL. JSON String that asserts the security mechanism the Wallet uses to authenticate access to the private key associated with the public key given in the `cnf` claim. This specification defines the following values for `user_authentication`:\r\n  * `system_biometry`: It MUST be used when the key usage is authorized through a biometric factor by the operating system.\r\n  * `system_pin`: It MUST be used when the key usage is authorized through a knowledge factor by the operating system.\r\n  * `internal_biometry`: It MUST be used when the key usage is authorized through a biometric factor by the Wallet itself.\r\n  * `internal_pin`: It MUST be used when the key usage is authorized through a knowledge factor by the Wallet itself.\r\n  * `secure_element_pin` It MUST be used when the key usage is authorized through a knowledge factor by the secure element that is managing the key itself.\r\n```",
+              "createdAt": "2023-10-04T11:39:19Z",
+              "updatedAt": "2023-10-04T11:41:02Z"
+            },
+            {
+              "originalPosition": 39,
+              "body": "We may use JSON Array for `user_authentication`?",
+              "createdAt": "2023-10-04T11:40:46Z",
+              "updatedAt": "2023-10-04T11:41:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i0sSN",
+          "commit": {
+            "abbreviatedOid": "d9e263c"
+          },
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-04T15:55:43Z",
+          "updatedAt": "2023-10-04T15:55:43Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "@Sakurann Paul updated the PR with definitions. Please check. ",
+              "createdAt": "2023-10-04T15:55:43Z",
+              "updatedAt": "2023-10-04T15:55:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i2jDl",
+          "commit": {
+            "abbreviatedOid": "1ae5b33"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-04T20:51:08Z",
+          "updatedAt": "2023-10-04T20:51:09Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\r\n* `user_authentication`: OPTIONAL. JSON String that asserts the security mechanism the Wallet uses to authenticate the user to authorize access to the private key associated with the public key given in the `cnf` claim. This specification defines the following values for `user_authentication`:\r\n  * `system_biometry`: It MUST be used when the key usage is authorized by the mobile operating system using a biometric factor.\r\n  * `system_pin`: It MUST be used when the key usage is authorized by the mobile operating system using personal identification number (PIN) as a knowledge factor.\r\n  * `internal_biometry`: It MUST be used when the key usage is authorized by the Wallet using a biometric factor.\r\n  * `internal_pin`: It MUST be used when the key usage is authorized by the Wallet using PIN as a knowledge factor.\r\n  * `secure_element_pin` It MUST be used when the key usage is authorized by the secure element managing the key itself using PIN as a knowledge factor.\r\n```\r\n\r\n`knowledge factor` != `pin`, no? knowledge factor can be password, etc...\r\nI have reservations by saying `by the Wallet`, given that the term `Wallet` is not defined in HAIP yet (opened #64), prefer something like `at the application layer`, but guess it's ok for now.",
+              "createdAt": "2023-10-04T20:51:09Z",
+              "updatedAt": "2023-10-04T20:51:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i25tX",
+          "commit": {
+            "abbreviatedOid": "1ae5b33"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-04T22:02:06Z",
+          "updatedAt": "2023-10-04T22:02:06Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "I used knowledge factor because for in case of operating system, Android can not distinguish between password, pin and swipe pattern. Secure element will always have a pin and usually the wallet option as well",
+              "createdAt": "2023-10-04T22:02:06Z",
+              "updatedAt": "2023-10-04T22:02:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i28nj",
+          "commit": {
+            "abbreviatedOid": "1ae5b33"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-04T22:07:05Z",
+          "updatedAt": "2023-10-04T22:07:05Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "what does that mean in terms of the current/proposed spec text?",
+              "createdAt": "2023-10-04T22:07:05Z",
+              "updatedAt": "2023-10-04T22:07:05Z"
+            }
+          ]
         }
       ]
     },
@@ -3745,13 +3867,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-07-12T16:17:47Z",
-      "updatedAt": "2023-10-02T17:18:10Z",
+      "updatedAt": "2023-10-04T16:04:27Z",
       "baseRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
       "baseRefName": "main",
-      "baseRefOid": "a4a34c3ede0367c90319685c5ff4b86a5767700e",
+      "baseRefOid": "29d00a4a2bcf184f421fe0a9e3fbe794d0bd0422",
       "headRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
       "headRefName": "sd-jwt-profile",
-      "headRefOid": "6586bb28cc4d296606f3d18304f2c0e7149ac1f5",
+      "headRefOid": "ba10db9ff8bc19e70a00d848d3c88b0c722f9201",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -5074,6 +5196,19 @@
               "updatedAt": "2023-10-02T17:04:04Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i0wg1",
+          "commit": {
+            "abbreviatedOid": "ba10db9"
+          },
+          "author": "selfissued",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2023-10-04T16:04:27Z",
+          "updatedAt": "2023-10-04T16:04:27Z",
+          "comments": []
         }
       ]
     },
