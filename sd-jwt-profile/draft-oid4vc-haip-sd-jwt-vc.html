@@ -10,26 +10,26 @@
 <meta content="
        This document defines a profile of OpenID for Verifiable Credentials in combination with the credential format SD-JWT VC. The aim is to select features and to define a set of requirements for the existing specifications to enable interoperability among Issuers, Wallets and Verifiers of Credentials where a high level of security and privacy is required. The profiled specifications include OpenID for Verifiable Credential Issuance  , OpenID for Verifiable Presentations  , Self-Issued OpenID Provider v2  , and SD-JWT VC  . 
     " name="description">
-<meta content="xml2rfc 3.18.0" name="generator">
+<meta content="xml2rfc 3.18.1" name="generator">
 <meta content="security" name="keyword">
 <meta content="openid4vc" name="keyword">
 <meta content="sd-jwt" name="keyword">
 <meta content="draft-oid4vc-haip-sd-jwt-vc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.0
+  xml2rfc 3.18.1
     Python 3.11.5
     ConfigArgParse 1.5.3
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.10.0
+    platformdirs 3.11.0
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
     setuptools 67.7.2
     six 1.16.0
-    wcwidth 0.2.6
+    wcwidth 0.2.8
 -->
 <link href="draft-oid4vc-haip-sd-jwt-vc.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1028,7 +1028,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left"></td>
 <td class="center">oid4vc-haip-sd-jwt-vc</td>
-<td class="right">September 2023</td>
+<td class="right">October 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Yasuda &amp; Lodderstedt</td>
@@ -1043,7 +1043,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="workgroup">OpenID Connect</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-09-28" class="published">28 September 2023</time>
+<time datetime="2023-10-05" class="published">5 October 2023</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1137,7 +1137,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-sd-jwt-vc-credential-format" class="internal xref">SD-JWT VC Credential Format Profile</a></p>
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-openid4vc-credential-format" class="internal xref">OpenID4VC Credential Format Profile</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2.2.1">
                     <p id="section-toc.1-1.7.2.2.2.1.1"><a href="#section-7.2.1" class="auto internal xref">7.2.1</a>.  <a href="#name-format-identifier" class="internal xref">Format Identifier</a></p>
@@ -1326,7 +1326,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
               <td class="text-left" rowspan="1" colspan="1">SHOULD</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">SD-JWT VC</td>
+              <td class="text-left" rowspan="1" colspan="1">SD-JWT VC profile as defined in <a href="#sd-jwt-vc" class="auto internal xref">Section 7</a>
+</td>
               <td class="text-left" rowspan="1" colspan="1">MUST</td>
               <td class="text-left" rowspan="1" colspan="1">MUST</td>
               <td class="text-left" rowspan="1" colspan="1">MUST</td>
@@ -1346,7 +1347,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <ul class="normal">
 <li class="normal" id="section-4-2.1">MUST support both pre-auth code flow and authorization code flow.<a href="#section-4-2.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-4-2.2">MUST support SD-JWT VC profile as defined in this specification.<a href="#section-4-2.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-2.2">MUST support protocol extensions for SD-JWT VC credential format profile as defined in this specification (##vc<em>sd</em>jwt_profile).<a href="#section-4-2.2" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-4-2.3">MUST support sender-constrained Tokens using a mechanism as defined in <span>[<a href="#I-D.ietf-oauth-dpop" class="cite xref">I-D.ietf-oauth-dpop</a>]</span>.<a href="#section-4-2.3" class="pilcrow">¶</a>
 </li>
@@ -1381,7 +1382,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
           <li class="normal" id="section-4.2-1.2">Wallets MUST authenticate itself at the PAR endpoint using the same rules as defined in <a href="#token-endpoint" class="auto internal xref">Section 4.3</a> for client authentication at the token endpoint.<a href="#section-4.2-1.2" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.2-1.3">MUST use <code>scope</code> parameter to communicate credential type(s) to be issued. The scope value MUST map to a specific Credential type. (pending OID4VCI PR#520)<a href="#section-4.2-1.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.2-1.3">MUST use <code>scope</code> parameter to communicate credential type(s) to be issued. The scope value MUST map to a specific Credential type. The scope value may be pre-agreed, obtained from the Credential Offer, or the Credential Issuer Metadata.<a href="#section-4.2-1.3" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-4.2-1.4">The <code>client_id</code> value in the PAR request MUST be a string that the Wallet has used as the <code>sub</code> value in the client attestation JWT.<a href="#section-4.2-1.4" class="pilcrow">¶</a>
 </li>
@@ -1445,30 +1446,34 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-openid-for-verifiable-prese" class="section-name selfRef">OpenID for Verifiable Presentations</a>
       </h2>
 <ul class="normal">
-<li class="normal" id="section-5-1.1">As a way to invoke the Wallet, at least a custom URL scheme <code>haip://</code> MUST be supported. Implementations MAY support other ways to invoke the wallets as agreed by trust frameworks/ecosystems/jurisdictions, not limited to using other custom URL schemes.<a href="#section-5-1.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5-1.1">MUST support protocol extensions for SD-JWT VC credential format profile as defined in this specification (##vc<em>sd</em>jwt_profile).<a href="#section-5-1.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-5-1.2">Response type MUST be <code>vp_token</code>.<a href="#section-5-1.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-5-1.2">As a way to invoke the Wallet, at least a custom URL scheme <code>haip://</code> MUST be supported. Implementations MAY support other ways to invoke the wallets as agreed by trust frameworks/ecosystems/jurisdictions, not limited to using other custom URL schemes.<a href="#section-5-1.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-5-1.3">Response mode MUST be <code>direct_post</code> with <code>redirect_uri</code> as defined in Section 6.2 of <span>[<a href="#OIDF.OID4VP" class="cite xref">OIDF.OID4VP</a>]</span>.<a href="#section-5-1.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-5-1.3">Response type MUST be <code>vp_token</code>.<a href="#section-5-1.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-5-1.4">Authorization Request MUST be sent using the <code>request_uri</code> parameter as defined in JWT-Secured Authorization Request (JAR) <span>[<a href="#RFC9101" class="cite xref">RFC9101</a>]</span>.<a href="#section-5-1.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-5-1.4">Response mode MUST be <code>direct_post</code> with <code>redirect_uri</code> as defined in Section 6.2 of <span>[<a href="#OIDF.OID4VP" class="cite xref">OIDF.OID4VP</a>]</span>.<a href="#section-5-1.4" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-5-1.5">
-          <code>client_id_scheme</code> parameter MUST be present in the Authorization Request.<a href="#section-5-1.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-5-1.5">Authorization Request MUST be sent using the <code>request_uri</code> parameter as defined in JWT-Secured Authorization Request (JAR) <span>[<a href="#RFC9101" class="cite xref">RFC9101</a>]</span>.<a href="#section-5-1.5" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-5-1.6">
-          <code>client_id_scheme</code> value MUST be either <code>x509_san_dns</code> or <code>verifier_attestation</code>. Wallet MUST support both. Verifier MUST support at least one. (pending OID4VCI PR #524 for verifier_attestation)<a href="#section-5-1.6" class="pilcrow">¶</a>
+          <code>client_id_scheme</code> parameter MUST be present in the Authorization Request.<a href="#section-5-1.6" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-5-1.7">Presentation Definition JSON object MUST be sent using a <code>presentation_definition</code> parameter.<a href="#section-5-1.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-5-1.7">
+          <code>client_id_scheme</code> value MUST be either <code>x509_san_dns</code> or <code>verifier_attestation</code>. Wallet MUST support both. Verifier MUST support at least one. (pending OID4VCI PR #524 for verifier_attestation)<a href="#section-5-1.7" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-5-1.8">
-          <p id="section-5-1.8.1">The following features from the DIF Presentation Exchange v2.0.0 MUST be supported. A JSON schema for the supported features is in <a href="#presentation-definition-schema" class="auto internal xref">Appendix B</a>:<a href="#section-5-1.8.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-5-1.8">To obtain the issuer's public key for verification, verifiers MUST support web-based key resolution as defined in Section 5 of <span>[<a href="#I-D.ietf-oauth-sd-jwt-vc" class="cite xref">I-D.ietf-oauth-sd-jwt-vc</a>]</span>. The JOSE header <code>kid</code> MUST be used to identify the respective key.<a href="#section-5-1.8" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-1.9">Presentation Definition JSON object MUST be sent using a <code>presentation_definition</code> parameter.<a href="#section-5-1.9" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-1.10">
+          <p id="section-5-1.10.1">The following features from the DIF Presentation Exchange v2.0.0 MUST be supported. A JSON schema for the supported features is in <a href="#presentation-definition-schema" class="auto internal xref">Appendix B</a>:<a href="#section-5-1.10.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5-1.8.2.1">In the <code>presentation_definition</code> object, <code>id</code>, <code>input_descriptors</code> and <code>submission_requirements</code> properties MUST be supported.<a href="#section-5-1.8.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5-1.10.2.1">In the <code>presentation_definition</code> object, <code>id</code>, <code>input_descriptors</code> and <code>submission_requirements</code> properties MUST be supported.<a href="#section-5-1.10.2.1" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-5-1.8.2.2">In the <code>input-descriptors</code> object, <code>id</code>, <code>name</code>, <code>purpose</code>, <code>group</code>, <code>format</code>, and <code>constraints</code> properties MUST be supported. In the <code>constraints</code> object, <code>limit_disclosure</code>, and <code>fields</code> properties MUST be supported. In the <code>fields</code> object, <code>path</code> and <code>filter</code> properties MUST be supported. A <code>path</code> MUST contain exactly one entry with a static path to a certain claim. A <code>filter</code> MUST only contain <code>type</code> elements of value <code>string</code> and <code>const</code> elements.<a href="#section-5-1.8.2.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-5-1.10.2.2">In the <code>input-descriptors</code> object, <code>id</code>, <code>name</code>, <code>purpose</code>, <code>group</code>, <code>format</code>, and <code>constraints</code> properties MUST be supported. In the <code>constraints</code> object, <code>limit_disclosure</code>, and <code>fields</code> properties MUST be supported. In the <code>fields</code> object, <code>path</code> and <code>filter</code> properties MUST be supported. A <code>path</code> MUST contain exactly one entry with a static path to a certain claim. A <code>filter</code> MUST only contain <code>type</code> elements of value <code>string</code> and <code>const</code> elements.<a href="#section-5-1.10.2.2" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-5-1.8.2.3">In the <code>submission_requirements</code> object, <code>name</code>, <code>rule (</code>pick<code>only)</code>, <code>count</code>, <code>from</code> properties MUST be supported.<a href="#section-5-1.8.2.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-5-1.10.2.3">In the <code>submission_requirements</code> object, <code>name</code>, <code>rule (</code>pick<code>only)</code>, <code>count</code>, <code>from</code> properties MUST be supported.<a href="#section-5-1.10.2.3" class="pilcrow">¶</a>
 </li>
           </ul>
 </li>
@@ -1498,7 +1503,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-7-1">As credential format, SD-JWT VCs as defined in <span>[<a href="#I-D.ietf-oauth-sd-jwt-vc" class="cite xref">I-D.ietf-oauth-sd-jwt-vc</a>]</span> MUST be used.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">In addition, this profile defines the following additional requirements.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7-3.1">Both Compact serialization and JSON serialization MUST be supported as defined in <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-7-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-7-3.1">Compact serialization MUST be supported as defined in <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>. JSON serialization MAY be supported.<a href="#section-7-3.1" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-7-3.2">The following JWT Claims MUST be supported Content (differentiate issuance &amp; presentation)<a href="#section-7-3.2" class="pilcrow">¶</a>
 </li>
@@ -1599,10 +1604,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </div>
 <div id="vc_sd_jwt_profile">
 <section id="section-7.2">
-        <h3 id="name-sd-jwt-vc-credential-format">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-sd-jwt-vc-credential-format" class="section-name selfRef">SD-JWT VC Credential Format Profile</a>
+        <h3 id="name-openid4vc-credential-format">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-openid4vc-credential-format" class="section-name selfRef">OpenID4VC Credential Format Profile</a>
         </h3>
-<p id="section-7.2-1">This section specifies how SD-JWT VCs as defined in <span>[<a href="#I-D.ietf-oauth-sd-jwt-vc" class="cite xref">I-D.ietf-oauth-sd-jwt-vc</a>]</span> are used in conjunction with OpenID4VC specifications.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-1">This section specifies how SD-JWT VCs as defined in <span>[<a href="#I-D.ietf-oauth-sd-jwt-vc" class="cite xref">I-D.ietf-oauth-sd-jwt-vc</a>]</span> are used in conjunction with the OpenID4VC specifications.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <div id="format-identifier">
 <section id="section-7.2.1">
           <h4 id="name-format-identifier">
@@ -1640,7 +1645,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                       <code>name</code>: OPTIONAL. String value of a display name for the claim.<a href="#section-7.2.2-2.1.2.5.2.1" class="pilcrow">¶</a>
 </li>
                     <li class="normal" id="section-7.2.2-2.1.2.5.2.2">
-                      <code>locale</code>: OPTIONAL. String value that identifies language of this object represented as language tag values defined in BCP47 <span>[<a href="#RFC5646" class="cite xref">RFC5646</a>]</span>. There MUST be only one object with the same language identifier.<a href="#section-7.2.2-2.1.2.5.2.2" class="pilcrow">¶</a>
+                      <code>locale</code>: OPTIONAL. String value that identifies language of this object represented as language tag values defined in BCP47 <span>[<a href="#RFC5646" class="cite xref">RFC5646</a>]</span>. There MUST be only one object for each language identifier.<a href="#section-7.2.2-2.1.2.5.2.2" class="pilcrow">¶</a>
 </li>
                   </ul>
 </li>
@@ -1828,22 +1833,22 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-7.2.7-1">The Verifier SHOULD add a <code>vp_formats_supported</code> element to its metadata (e.g. in the <code>client_metadata</code> authorization request parameter) to let the wallet know what protection algorithms it supports in conjunction with SD-JWT VCs. The format element MUST have the key <code>vc+sd-jwt</code>, the value is an object consisting of the following elements:<a href="#section-7.2.7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.2.7-2.1">
-              <code>sd-jwt-alg</code>: OPTIONAL. A JSON array containing identifiers of cryptographic algorithms the verifier supports for protection of a SD-JWT. If present, the <code>alg</code> JOSE header (as defined in <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>) of the presented SD-JWT MUST match one of the array values.<a href="#section-7.2.7-2.1" class="pilcrow">¶</a>
+              <code>sd-jwt_alg_values</code>: OPTIONAL. A JSON array containing identifiers of cryptographic algorithms the verifier supports for protection of a SD-JWT. If present, the <code>alg</code> JOSE header (as defined in <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>) of the presented SD-JWT MUST match one of the array values.<a href="#section-7.2.7-2.1" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-7.2.7-2.2">
-              <code>kb-jwt-alg</code>: OPTIONAL. A JSON array containing identifiers of cryptographic algorithms the verifier supports for protection of a KB-JWT. If present, the <code>alg</code> JOSE header (as defined in <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>) of the presented KB-JWT MUST match one of the array values.<a href="#section-7.2.7-2.2" class="pilcrow">¶</a>
+              <code>kb-jwt_alg_values</code>: OPTIONAL. A JSON array containing identifiers of cryptographic algorithms the verifier supports for protection of a KB-JWT. If present, the <code>alg</code> JOSE header (as defined in <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>) of the presented KB-JWT MUST match one of the array values.<a href="#section-7.2.7-2.2" class="pilcrow">¶</a>
 </li>
           </ul>
 <p id="section-7.2.7-3">The following is a non-normative example of <code>client_metadata</code> request parameter value in a request to present a SD-JWT VC.<a href="#section-7.2.7-3" class="pilcrow">¶</a></p>
 <div class="lang-json sourcecode" id="section-7.2.7-4">
 <pre>{
-    "vp_formats_supported": {
+    "vp_formats": {
         "vc+sd-jwt": {
-            "sd-jwt-alg": [
+            "sd-jwt_alg_values": [
                 "ES256",
                 "ES384"
             ],
-            "kb-jwt-alg": [
+            "kb-jwt_alg_values": [
                 "ES256",
                 "ES384"
             ]

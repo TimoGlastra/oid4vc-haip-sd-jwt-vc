@@ -6,7 +6,7 @@ OpenID Connect                                                 K. Yasuda
                                                                Microsoft
                                                           T. Lodderstedt
                                                                  yes.com
-                                                       28 September 2023
+                                                          5 October 2023
 
 
     OpenID4VC High Assurance Interoperability Profile with SD-JWT VC
@@ -46,7 +46,7 @@ Table of Contents
      7.1.  Issuer identification and key resolution to validate an
            issued Credential
        7.1.1.  Cryptographic Holder Binding between VC and VP
-     7.2.  SD-JWT VC Credential Format Profile
+     7.2.  OpenID4VC Credential Format Profile
        7.2.1.  Format Identifier
        7.2.2.  Credential Issuer Metadata
        7.2.3.  Credential Offer
@@ -178,7 +178,8 @@ Table of Contents
        +------------------------------+--------+--------+----------+
        | SIOPv2                       | N/A    | MUST   | SHOULD   |
        +------------------------------+--------+--------+----------+
-       | SD-JWT VC                    | MUST   | MUST   | MUST     |
+       | SD-JWT VC profile as defined | MUST   | MUST   | MUST     |
+       | in Section 7                 |        |        |          |
        +------------------------------+--------+--------+----------+
 
                                   Table 1
@@ -189,7 +190,8 @@ Table of Contents
 
    *  MUST support both pre-auth code flow and authorization code flow.
 
-   *  MUST support SD-JWT VC profile as defined in this specification.
+   *  MUST support protocol extensions for SD-JWT VC credential format
+      profile as defined in this specification (##vc_sd_jwt_profile).
 
    *  MUST support sender-constrained Tokens using a mechanism as
       defined in [I-D.ietf-oauth-dpop].
@@ -237,7 +239,8 @@ Table of Contents
 
    *  MUST use scope parameter to communicate credential type(s) to be
       issued.  The scope value MUST map to a specific Credential type.
-      (pending OID4VCI PR#520)
+      The scope value may be pre-agreed, obtained from the Credential
+      Offer, or the Credential Issuer Metadata.
 
    *  The client_id value in the PAR request MUST be a string that the
       Wallet has used as the sub value in the client attestation JWT.
@@ -281,6 +284,9 @@ Table of Contents
 
 5.  OpenID for Verifiable Presentations
 
+   *  MUST support protocol extensions for SD-JWT VC credential format
+      profile as defined in this specification (##vc_sd_jwt_profile).
+
    *  As a way to invoke the Wallet, at least a custom URL scheme
       haip:// MUST be supported.  Implementations MAY support other ways
       to invoke the wallets as agreed by trust frameworks/ecosystems/
@@ -301,6 +307,11 @@ Table of Contents
       verifier_attestation.  Wallet MUST support both.  Verifier MUST
       support at least one. (pending OID4VCI PR #524 for
       verifier_attestation)
+
+   *  To obtain the issuer's public key for verification, verifiers MUST
+      support web-based key resolution as defined in Section 5 of
+      [I-D.ietf-oauth-sd-jwt-vc].  The JOSE header kid MUST be used to
+      identify the respective key.
 
    *  Presentation Definition JSON object MUST be sent using a
       presentation_definition parameter.
@@ -344,8 +355,9 @@ Table of Contents
    In addition, this profile defines the following additional
    requirements.
 
-   *  Both Compact serialization and JSON serialization MUST be
-      supported as defined in [I-D.ietf-oauth-selective-disclosure-jwt].
+   *  Compact serialization MUST be supported as defined in
+      [I-D.ietf-oauth-selective-disclosure-jwt].  JSON serialization MAY
+      be supported.
 
    *  The following JWT Claims MUST be supported Content (differentiate
       issuance & presentation)
@@ -459,10 +471,10 @@ Table of Contents
       [I-D.ietf-oauth-sd-jwt-vc] MUST always be present when presenting
       an SD-JWT VC.
 
-7.2.  SD-JWT VC Credential Format Profile
+7.2.  OpenID4VC Credential Format Profile
 
    This section specifies how SD-JWT VCs as defined in
-   [I-D.ietf-oauth-sd-jwt-vc] are used in conjunction with OpenID4VC
+   [I-D.ietf-oauth-sd-jwt-vc] are used in conjunction with the OpenID4VC
    specifications.
 
 7.2.1.  Format Identifier
@@ -515,8 +527,8 @@ Table of Contents
 
          o  locale: OPTIONAL.  String value that identifies language of
             this object represented as language tag values defined in
-            BCP47 [RFC5646].  There MUST be only one object with the
-            same language identifier.
+            BCP47 [RFC5646].  There MUST be only one object for each
+            language identifier.
 
    *  order: OPTIONAL.  An array of claims.display.name values that
       lists them in the order they should be displayed by the Wallet.
@@ -689,27 +701,29 @@ Table of Contents
    have the key vc+sd-jwt, the value is an object consisting of the
    following elements:
 
-   *  sd-jwt-alg: OPTIONAL.  A JSON array containing identifiers of
-      cryptographic algorithms the verifier supports for protection of a
-      SD-JWT.  If present, the alg JOSE header (as defined in [RFC7515])
-      of the presented SD-JWT MUST match one of the array values.
+   *  sd-jwt_alg_values: OPTIONAL.  A JSON array containing identifiers
+      of cryptographic algorithms the verifier supports for protection
+      of a SD-JWT.  If present, the alg JOSE header (as defined in
+      [RFC7515]) of the presented SD-JWT MUST match one of the array
+      values.
 
-   *  kb-jwt-alg: OPTIONAL.  A JSON array containing identifiers of
-      cryptographic algorithms the verifier supports for protection of a
-      KB-JWT.  If present, the alg JOSE header (as defined in [RFC7515])
-      of the presented KB-JWT MUST match one of the array values.
+   *  kb-jwt_alg_values: OPTIONAL.  A JSON array containing identifiers
+      of cryptographic algorithms the verifier supports for protection
+      of a KB-JWT.  If present, the alg JOSE header (as defined in
+      [RFC7515]) of the presented KB-JWT MUST match one of the array
+      values.
 
    The following is a non-normative example of client_metadata request
    parameter value in a request to present a SD-JWT VC.
 
    {
-       "vp_formats_supported": {
+       "vp_formats": {
            "vc+sd-jwt": {
-               "sd-jwt-alg": [
+               "sd-jwt_alg_values": [
                    "ES256",
                    "ES384"
                ],
-               "kb-jwt-alg": [
+               "kb-jwt_alg_values": [
                    "ES256",
                    "ES384"
                ]
