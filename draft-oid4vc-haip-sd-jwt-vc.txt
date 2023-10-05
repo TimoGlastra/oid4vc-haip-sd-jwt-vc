@@ -6,7 +6,7 @@ OpenID Connect                                                 K. Yasuda
                                                                Microsoft
                                                           T. Lodderstedt
                                                                  yes.com
-                                                       28 September 2023
+                                                          5 October 2023
 
 
     OpenID4VC High Assurance Interoperability Profile with SD-JWT VC
@@ -22,7 +22,7 @@ Abstract
    is required.  The profiled specifications include OpenID for
    Verifiable Credential Issuance [OIDF.OID4VCI], OpenID for Verifiable
    Presentations [OIDF.OID4VP], Self-Issued OpenID Provider v2
-   [OIDF.SIOPv2], and SD-JWT VC [I-D.terbu-sd-jwt-vc].
+   [OIDF.SIOPv2], and SD-JWT VC [I-D.ietf-oauth-sd-jwt-vc].
 
 Table of Contents
 
@@ -46,6 +46,15 @@ Table of Contents
      7.1.  Issuer identification and key resolution to validate an
            issued Credential
        7.1.1.  Cryptographic Holder Binding between VC and VP
+     7.2.  OpenID4VC Credential Format Profile
+       7.2.1.  Format Identifier
+       7.2.2.  Credential Issuer Metadata
+       7.2.3.  Credential Offer
+       7.2.4.  Authorization Details
+       7.2.5.  Credential Request
+       7.2.6.  Credential Response
+       7.2.7.  Verifier Metadata
+       7.2.8.  Presentation Definition
    8.  Crypto Suites
    9.  Implementations Considerations
      9.1.  Validity Period of the Signature and the Claim Values
@@ -75,9 +84,9 @@ Table of Contents
    [OIDF.OID4VCI] and OpenID for Verifiable Presentations [OIDF.OID4VP]
    as the base protocols for issuance and presentation of Credentials,
    respectively.  The credential format used is SD-JWT VC as specified
-   in [I-D.terbu-sd-jwt-vc].  Additionally, considerations are given on
-   how deployments can perform a combined issuance of credentials in
-   both SD-JWT VC and ISO mdoc [ISO.18013-5] formats.
+   in [I-D.ietf-oauth-sd-jwt-vc].  Additionally, considerations are
+   given on how deployments can perform a combined issuance of
+   credentials in both SD-JWT VC and ISO mdoc [ISO.18013-5] formats.
 
    A full list of the open standards used in this profile can be found
    in Overview of the Open Standards Requirements (reference).
@@ -95,7 +104,7 @@ Table of Contents
 2.  Terminology
 
    This specification uses the terms "Holder", "Issuer", "Verifier", and
-   "Verifiable Credential" as defined in [I-D.terbu-sd-jwt-vc].
+   "Verifiable Credential" as defined in [I-D.ietf-oauth-sd-jwt-vc].
 
 3.  Scope
 
@@ -169,7 +178,8 @@ Table of Contents
        +------------------------------+--------+--------+----------+
        | SIOPv2                       | N/A    | MUST   | SHOULD   |
        +------------------------------+--------+--------+----------+
-       | SD-JWT VC                    | MUST   | MUST   | MUST     |
+       | SD-JWT VC profile as defined | MUST   | MUST   | MUST     |
+       | in Section 7                 |        |        |          |
        +------------------------------+--------+--------+----------+
 
                                   Table 1
@@ -180,8 +190,8 @@ Table of Contents
 
    *  MUST support both pre-auth code flow and authorization code flow.
 
-   *  MUST support SD-JWT VC profile as defined in OID4VCI
-      specification.
+   *  MUST support protocol extensions for SD-JWT VC credential format
+      profile as defined in this specification (##vc_sd_jwt_profile).
 
    *  MUST support sender-constrained Tokens using a mechanism as
       defined in [I-D.ietf-oauth-dpop].
@@ -274,6 +284,9 @@ Table of Contents
 
 5.  OpenID for Verifiable Presentations
 
+   *  MUST support protocol extensions for SD-JWT VC credential format
+      profile as defined in this specification (##vc_sd_jwt_profile).
+
    *  As a way to invoke the Wallet, at least a custom URL scheme
       haip:// MUST be supported.  Implementations MAY support other ways
       to invoke the wallets as agreed by trust frameworks/ecosystems/
@@ -336,8 +349,8 @@ Table of Contents
 
 7.  SD-JWT VCs
 
-   As credential format, SD-JWT VCs as defined in [I-D.terbu-sd-jwt-vc]
-   MUST be used.
+   As credential format, SD-JWT VCs as defined in
+   [I-D.ietf-oauth-sd-jwt-vc] MUST be used.
 
    In addition, this profile defines the following additional
    requirements.
@@ -364,7 +377,7 @@ Table of Contents
    +--------+----------------+----------------------------------------+
    | cnf    | MUST           | [RFC7800]                              |
    +--------+----------------+----------------------------------------+
-   | type   | MUST           | [I-D.terbu-sd-jwt-vc]                  |
+   | type   | MUST           | [I-D.ietf-oauth-sd-jwt-vc]             |
    +--------+----------------+----------------------------------------+
    | status | SHOULD (at the | [I-D.looker-oauth-jwt-cwt-status-list] |
    |        | discretion of  |                                        |
@@ -384,11 +397,12 @@ Table of Contents
    *  The iss claim MUST be an HTTPS URL.  The iss value is used to
       obtain Issuer’s signing key as defined in Section 7.1.
 
-   *  The type JWT claim as defined in [I-D.terbu-sd-jwt-vc].
+   *  The type JWT claim as defined in [I-D.ietf-oauth-sd-jwt-vc].
 
    *  The cnf claim [RFC7800] MUST conform to the definition given in
-      [I-D.terbu-sd-jwt-vc].  Implementations conforming to this profile
-      MUST include the JSON Web Key [RFC7517] in the jwk sub claim.
+      [I-D.ietf-oauth-sd-jwt-vc].  Implementations conforming to this
+      profile MUST include the JSON Web Key [RFC7517] in the jwk sub
+      claim.
 
    Note: Currently this profile only supports presentation of
    credentials with cryptographic Holder Binding: the holder's signature
@@ -420,8 +434,8 @@ Table of Contents
    Note: If there is a requirement to provide the Subject’s identifier
    assigned and maintained by the Issuer, sub claim MAY be used.  There
    is no requirement for a binding to exist between sub and cnf claims.
-   See section X in [I-D.terbu-sd-jwt-vc] for implementation
-   considerations.
+   See Implementation Considerations section in
+   [I-D.ietf-oauth-sd-jwt-vc].
 
    Note: In some credential types, it is not desirable to include an
    expiration date (eg: diploma attestation).  Therefore, this profile
@@ -431,14 +445,14 @@ Table of Contents
 7.1.  Issuer identification and key resolution to validate an issued
       Credential
 
-   This profile supports two ways to represent and resolves the key
-   required to validate the issuer signature of a SD-JWT VC, web PKI-
-   based key resolution and x.509 certificates.
+   This profile supports two ways to represent and resolve the key
+   required to validate the issuer signature of an SD-JWT VC, the web
+   PKI-based key resolution and the x.509 certificates.
 
    *  Web-based key resolution: The key used to validate the Issuer’s
       signature on the SD-JWT VC MUST be obtained from the SD-JWT VC
       issuer's metadata as defined in Section 5 of
-      [I-D.terbu-sd-jwt-vc].  The JOSE header kid MUST be used to
+      [I-D.ietf-oauth-sd-jwt-vc].  The JOSE header kid MUST be used to
       identify the respective key.
 
    *  x.509 certificates: the SD-JWT VC contains the issuer's
@@ -453,9 +467,314 @@ Table of Contents
 
 7.1.1.  Cryptographic Holder Binding between VC and VP
 
-   *  For Cryptographic Holder Binding, an HB-JWT as defined in
-      [I-D.terbu-sd-jwt-vc] MUST always be present when presenting a SD-
-      JWT VC.
+   *  For Cryptographic Holder Binding, a KB-JWT as defined in
+      [I-D.ietf-oauth-sd-jwt-vc] MUST always be present when presenting
+      an SD-JWT VC.
+
+7.2.  OpenID4VC Credential Format Profile
+
+   This section specifies how SD-JWT VCs as defined in
+   [I-D.ietf-oauth-sd-jwt-vc] are used in conjunction with the OpenID4VC
+   specifications.
+
+7.2.1.  Format Identifier
+
+   The Credential format identifier is vc+sd-jwt.  This format
+   identifier is used in issuance and presentation requests.
+
+7.2.2.  Credential Issuer Metadata
+
+   The following additional Credential Issuer metadata are defined for
+   this Credential format to be used in addition to those defined in
+   Section 10.2 of [OIDF.OID4VCI].
+
+   *  credential_definition: REQUIRED.  JSON object containing the
+      detailed description of the credential type.  It consists at least
+      of the following two sub elements:
+
+      -  type: REQUIRED.  JSON string designating the type of a
+         credential as defined in [I-D.ietf-oauth-sd-jwt-vc],
+         Section 4.2.2.1.
+
+      -  claims: OPTIONAL.  A JSON object containing a list of name/
+         value pairs, where each name identifies a claim offered in the
+         Credential.  The value can be another such object (nested data
+         structures), or an array of such objects.  To express the
+         specifics about the claim, the most deeply nested value MAY be
+         a JSON object that includes a following non-exhaustive list of
+         parameters defined by this specification:
+
+      -  mandatory: OPTIONAL.  Boolean which when set to true indicates
+         the claim MUST be present in the issued Credential.  If the
+         mandatory property is omitted its default should be assumed to
+         be false.
+
+      -  value_type: OPTIONAL.  String value determining type of value
+         of the claim.  A non-exhaustive list of valid values defined by
+         this specification are string, number, and image media types
+         such as image/jpeg as defined in IANA media type registry for
+         images (https://www.iana.org/assignments/media-types/media-
+         types.xhtml#image (https://www.iana.org/assignments/media-
+         types/media-types.xhtml#image)).
+
+      -  display: OPTIONAL.  An array of objects, where each object
+         contains display properties of a certain claim in the
+         Credential for a certain language.  Below is a non-exhaustive
+         list of valid parameters that MAY be included:
+
+         o  name: OPTIONAL.  String value of a display name for the
+            claim.
+
+         o  locale: OPTIONAL.  String value that identifies language of
+            this object represented as language tag values defined in
+            BCP47 [RFC5646].  There MUST be only one object for each
+            language identifier.
+
+   *  order: OPTIONAL.  An array of claims.display.name values that
+      lists them in the order they should be displayed by the Wallet.
+
+   The following is a non-normative example of an object comprising
+   credentials_supported parameter of Credential format vc+sd-jwt.
+
+   {
+       "format": "vc+sd-jwt",
+       "scope": "IdentityCredential_SD-JWT-VC",
+       "cryptographic_binding_methods_supported": [
+           "did:example"
+       ],
+       "cryptographic_suites_supported": [
+           "ES256K"
+       ],
+       "display": [
+           {
+               "name": "IdentityCredential",
+               "locale": "en-US",
+               "background_color": "#12107c",
+               "text_color": "#FFFFFF"
+           }
+       ],
+       "credential_definition": {
+           "type": "IdentityCredential",
+           "claims": {
+               "given_name": {
+                   "display": [
+                       {
+                           "name": "Given Name",
+                           "locale": "en-US"
+                       },
+                       {
+                           "name": "Vorname",
+                           "locale": "de-DE"
+                       }
+                   ]
+               },
+               "last_name": {
+                   "display": [
+                       {
+                           "name": "Surname",
+                           "locale": "en-US"
+                       },
+                       {
+                           "name": "Nachname",
+                           "locale": "de-DE"
+                       }
+                   ]
+               },
+               "email": {},
+               "phone_number": {},
+               "address": {
+                   "street_address": {},
+                   "locality": {},
+                   "region": {},
+                   "country": {}
+               },
+               "birthdate": {},
+               "is_over_18": {},
+               "is_over_21": {},
+               "is_over_65": {}
+           }
+       }
+   }
+
+
+   {
+       "type": "IdentityCredential",
+       "given_name": "John",
+       "family_name": "Doe",
+   }
+
+7.2.3.  Credential Offer
+
+   The following additional claims are defined for this Credential
+   format.
+
+   *  credential_definition: REQUIRED.  JSON object containing the
+      detailed description of the credential type.  It MUST contain at
+      least type property as defined in Section 7.2.2.
+
+   The following is a non-normative example of an object comprising
+   credentials_supported parameter of Credential format vc+sd-jwt.
+
+   {
+       "credential_issuer": "https://credential-issuer.example.com",
+       "credentials": [
+           {
+               "format": "vc+sd-jwt",
+               "credential_definition": {
+                   "type": "IdentityCredential"
+               }
+           }
+       ],
+       "grants": {
+           "authorization_code": {
+               "issuer_state": "eyJhbGciOiJSU0Et...FYUaBy"
+           }
+       }
+   }
+
+7.2.4.  Authorization Details
+
+   The following additional claims are defined for authorization details
+   of type openid_credential and this Credential format.
+
+   *  credential_definition: REQUIRED.  JSON object containing the
+      detailed description of the credential type.  It MUST contain at
+      least type property as defined in Section 7.2.2.  It MAY contain
+      claims property as defined in Section 7.2.2.
+
+   The following is a non-normative example of an authorization details
+   object with Credential format vc+sd-jwt.
+
+   [
+       {
+           "type": "openid_credential",
+           "format": "vc+sd-jwt",
+           "credential_definition": {
+               "type": "IdentityCredential"
+           }
+       }
+   ]
+
+7.2.5.  Credential Request
+
+   The following additional parameters are defined for Credential
+   Requests and this Credential format.
+
+   *  credential_definition: REQUIRED.  JSON object containing the
+      detailed description of the credential type.  It MUST contain at
+      least type property as defined in Section 7.2.2.  It MAY contain
+      claims property as defined in Section 7.2.2.
+
+   The following is a non-normative example of a Credential Request with
+   Credential format vc+sd-jwt.
+
+   {
+      "format": "vc+sd-jwt",
+      "credential_definition": {
+         "type": "IdentityCredential"
+      },
+      "proof": {
+         "proof_type": "jwt",
+         "jwt":"eyJraWQiOiJkaWQ6ZXhhbXBsZTplYmZlYjFmNzEyZWJjNmYxYzI3NmUxMmVjMjEva2V5cy8
+         xIiwiYWxnIjoiRVMyNTYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJzNkJoZFJrcXQzIiwiYXVkIjoiaHR
+         0cHM6Ly9zZXJ2ZXIuZXhhbXBsZS5jb20iLCJpYXQiOiIyMDE4LTA5LTE0VDIxOjE5OjEwWiIsIm5vbm
+         NlIjoidFppZ25zbkZicCJ9.ewdkIkPV50iOeBUqMXCC_aZKPxgihac0aW9EkL1nOzM"
+      }
+   }
+
+7.2.6.  Credential Response
+
+   The value of the credential claim in the Credential Response MUST be
+   a JSON string that is an SD-JWT VC.  Credentials of this format are
+   already suitable for transfer and, therefore, they need not and MUST
+   NOT be re-encoded.
+
+   The following is a non-normative example of a Credential Response
+   with Credential format vc+sd-jwt.
+
+7.2.7.  Verifier Metadata
+
+   The Verifier SHOULD add a vp_formats_supported element to its
+   metadata (e.g. in the client_metadata authorization request
+   parameter) to let the wallet know what protection algorithms it
+   supports in conjunction with SD-JWT VCs.  The format element MUST
+   have the key vc+sd-jwt, the value is an object consisting of the
+   following elements:
+
+   *  sd-jwt_alg_values: OPTIONAL.  A JSON array containing identifiers
+      of cryptographic algorithms the verifier supports for protection
+      of a SD-JWT.  If present, the alg JOSE header (as defined in
+      [RFC7515]) of the presented SD-JWT MUST match one of the array
+      values.
+
+   *  kb-jwt_alg_values: OPTIONAL.  A JSON array containing identifiers
+      of cryptographic algorithms the verifier supports for protection
+      of a KB-JWT.  If present, the alg JOSE header (as defined in
+      [RFC7515]) of the presented KB-JWT MUST match one of the array
+      values.
+
+   The following is a non-normative example of client_metadata request
+   parameter value in a request to present a SD-JWT VC.
+
+   {
+       "vp_formats": {
+           "vc+sd-jwt": {
+               "sd-jwt_alg_values": [
+                   "ES256",
+                   "ES384"
+               ],
+               "kb-jwt_alg_values": [
+                   "ES256",
+                   "ES384"
+               ]
+           }
+       }
+   }
+
+7.2.8.  Presentation Definition
+
+   The presentation of a SD-JWT VC is requested by adding an object
+   named vc+sd-jwt to the format object of an input_descriptor.  The
+   object is empty.
+
+   The following is a non-normative example of a presentation definition
+   for a SD-JWT VC.
+
+   {
+       "id": "d76c51b7-ea90-49bb-8368-6b3d194fc131",
+       "input_descriptors": [
+           {
+               "id": "IdentityCredential",
+               "format": {
+                   "vc+sd-jwt": {}
+               },
+               "constraints": {
+                   "limit_disclosure": "required",
+                   "fields": [
+                       {
+                           "path": [
+                               "$.type"
+                           ],
+                           "filter": {
+                               "type": "string",
+                               "const": "IdentityCredential"
+                           }
+                       },
+                       {
+                           "path": [
+                               "$.family_name"
+                           ]
+                       },
+                       {
+                           "path": [
+                               "$.given_name"
+                           ]
+                       }
+                   ]
+               }
+           }
+       ]
+   }
 
 8.  Crypto Suites
 
@@ -526,13 +845,6 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-looker-oauth-
               jwt-cwt-status-list-01>.
 
-   [I-D.terbu-sd-jwt-vc]
-              Terbu, O. and D. Fett, "SD-JWT-based Verifiable
-              Credentials with JSON payloads (SD-JWT VC)", Work in
-              Progress, Internet-Draft, draft-terbu-sd-jwt-vc-02, 26 May
-              2023, <https://datatracker.ietf.org/doc/html/draft-terbu-
-              sd-jwt-vc-02>.
-
    [OIDF.OID4VCI]
               Lodderstedt, T., Yasuda, K., and T. Looker, "OpenID for
               Verifiable Credential Issuance", 20 June 2022,
@@ -562,6 +874,14 @@ Table of Contents
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
+
+   [RFC5646]  Phillips, A., Ed. and M. Davis, Ed., "Tags for Identifying
+              Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646,
+              September 2009, <https://www.rfc-editor.org/info/rfc5646>.
+
+   [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
+              Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
+              2015, <https://www.rfc-editor.org/info/rfc7515>.
 
    [RFC7517]  Jones, M., "JSON Web Key (JWK)", RFC 7517,
               DOI 10.17487/RFC7517, May 2015,
