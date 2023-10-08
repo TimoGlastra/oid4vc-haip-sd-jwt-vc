@@ -6,7 +6,7 @@ OpenID Connect                                                 K. Yasuda
                                                                Microsoft
                                                           T. Lodderstedt
                                                                  yes.com
-                                                          5 October 2023
+                                                          8 October 2023
 
 
     OpenID4VC High Assurance Interoperability Profile with SD-JWT VC
@@ -361,8 +361,8 @@ Table of Contents
          "x": "TCAER19Zvu3OHF4j4W4vfSVoHIP1ILilDls7vCeGemc",
          "y": "ZxjiWWbZMQGHVWKVQ4hbSIirsVfuecCE6t4jT9F2HZQ"
        },
-       "key_type": "STRONGBOX",
-       "user_authentication": "SYSTEM_PIN",
+       "key_type": "strong_box",
+       "user_authentication": "system_pin",
      }
    }
 
