@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-05T00:24:20.189384+00:00",
+  "timestamp": "2023-10-08T00:26:41.829233+00:00",
   "repo": "vcstuff/oid4vc-haip-sd-jwt-vc",
   "labels": [
     {
@@ -2260,24 +2260,26 @@
       "id": "PR_kwDOJcWsFs5U5OLM",
       "title": "added wallet attestation scheme",
       "url": "https://github.com/vcstuff/oid4vc-haip-sd-jwt-vc/pull/52",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tlodderstedt",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses # 51<!-- Issue # here -->\r\n\r\n## \ud83d\udcd1 Description\r\n<!-- Add a brief description of the pr -->\r\nThis PR adds a Wallet Attestation scheme to the spec. \r\n\r\n## Preview Link\r\n\r\n<!-- Update the link below to provide reviewers with a convenient link to view a rendered version of the PR-->\r\n<!-- In general the link should be of the form https://github.com/<repo-name>/<branch-name>/<draft-name>.html-->\r\n\r\n[click here for rendered preview of PR](https://vcstuff.github.io/oid4vc-haip-sd-jwt-vc/wallet-attestation/draft-oid4vc-haip-sd-jwt-vc.html)",
       "createdAt": "2023-07-07T08:59:59Z",
-      "updatedAt": "2023-10-04T22:07:05Z",
+      "updatedAt": "2023-10-05T19:33:33Z",
       "baseRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
       "baseRefName": "main",
-      "baseRefOid": "46d2332b3d86e9125c876e84adea0836952ccb15",
+      "baseRefOid": "31d589cc6f7d36073c3c9ed19d62ef5b3f49f41a",
       "headRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
       "headRefName": "wallet-attestation",
-      "headRefOid": "1ae5b3317d8b849fc7305505bc8581a1242db039",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "4f880579579bf98d3e57974700437e82b541fe1c",
+      "closedAt": "2023-10-05T18:56:55Z",
+      "mergedAt": "2023-10-05T18:56:55Z",
+      "mergedBy": "tlodderstedt",
+      "mergeCommit": {
+        "oid": "38753fc242aaaaf72e45171503f25054bd5a2576"
+      },
       "comments": [
         {
           "author": "tlodderstedt",
@@ -2334,6 +2336,13 @@
           "body": "> In the discussions in this PR,\r\n\r\n>the Wallet Provider and the Attester are competing for the iss claim, and\r\nthe Per-Application identifier, the Per-Version identifier and the Per-Device identifer are competing for the sub claim.\r\nEach of the concepts should have a separate claim in order to avoid conflicts. Otherwise, we would encounter technically troublesome issues in the future.\r\n\r\nLooking onto it from an OAuth AS perspective, I think is important to define a) what kind of assertions the AS should process and b) how the client id is determined. \r\n\r\nFor a) all what matters is that the AS can look that value up and knows how to access the signing key. Whether that is a 3rd party or the wallet provider itself, can be determined by the deployment. \r\n\r\nFor b) I would stick to the definition of RFC 752 \"For client authentication, the subject MUST be the \"client_id\" of the OAuth client.\" That basically means client id values are at the discretion of the wallet assertion issuer. If the issuer decides to use ephemeral values, that's fine, too. ",
           "createdAt": "2023-09-18T14:22:52Z",
           "updatedAt": "2023-09-18T14:22:52Z"
+        },
+        {
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "why was it merged? i still had request for changes",
+          "createdAt": "2023-10-05T19:33:33Z",
+          "updatedAt": "2023-10-05T19:33:33Z"
         }
       ],
       "reviews": [
@@ -3449,9 +3458,9 @@
           "comments": [
             {
               "originalPosition": 44,
-              "body": "```suggestion\r\n* `user_authentication`: OPTIONAL. JSON String that asserts the security mechanism the Wallet uses to authenticate the user to authorize access to the private key associated with the public key given in the `cnf` claim. This specification defines the following values for `user_authentication`:\r\n  * `system_biometry`: It MUST be used when the key usage is authorized by the mobile operating system using a biometric factor.\r\n  * `system_pin`: It MUST be used when the key usage is authorized by the mobile operating system using personal identification number (PIN) as a knowledge factor.\r\n  * `internal_biometry`: It MUST be used when the key usage is authorized by the Wallet using a biometric factor.\r\n  * `internal_pin`: It MUST be used when the key usage is authorized by the Wallet using PIN as a knowledge factor.\r\n  * `secure_element_pin` It MUST be used when the key usage is authorized by the secure element managing the key itself using PIN as a knowledge factor.\r\n```\r\n\r\n`knowledge factor` != `pin`, no? knowledge factor can be password, etc...\r\nI have reservations by saying `by the Wallet`, given that the term `Wallet` is not defined in HAIP yet (opened #64), prefer something like `at the application layer`, but guess it's ok for now.",
+              "body": "```suggestion\r\n* `user_authentication`: OPTIONAL. JSON String that asserts the security mechanism the Wallet uses to authenticate the user to authorize access to the private key associated with the public key given in the `cnf` claim. This specification defines the following values for `user_authentication`:\r\n  * `system_biometry`: It MUST be used when the key usage is authorized by the mobile operating system using a biometric factor.\r\n  * `system_pin`: It MUST be used when the key usage is authorized by the mobile operating system using personal identification number (PIN).\r\n  * `internal_biometry`: It MUST be used when the key usage is authorized by the Wallet using a biometric factor.\r\n  * `internal_pin`: It MUST be used when the key usage is authorized by the Wallet using PIN.\r\n  * `secure_element_pin` It MUST be used when the key usage is authorized by the secure element managing the key itself using PIN.\r\n```\r\n\r\n`knowledge factor` != `pin`, no? knowledge factor can be password, etc...\r\nI have reservations by saying `by the Wallet`, given that the term `Wallet` is not defined in HAIP yet (opened #64), prefer something like `at the application layer`, but guess it's ok for now.",
               "createdAt": "2023-10-04T20:51:09Z",
-              "updatedAt": "2023-10-04T20:51:09Z"
+              "updatedAt": "2023-10-05T18:48:21Z"
             }
           ]
         },
@@ -3492,6 +3501,126 @@
               "body": "what does that mean in terms of the current/proposed spec text?",
               "createdAt": "2023-10-04T22:07:05Z",
               "updatedAt": "2023-10-04T22:07:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i-SRH",
+          "commit": {
+            "abbreviatedOid": "1ae5b33"
+          },
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-05T18:43:34Z",
+          "updatedAt": "2023-10-05T18:43:34Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "> I have reservations by saying by the Wallet\r\n\r\nThe section is about wallet attestation, so I think it is reasonable to use the term \"Wallet\" ",
+              "createdAt": "2023-10-05T18:43:34Z",
+              "updatedAt": "2023-10-05T18:43:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i-S8B",
+          "commit": {
+            "abbreviatedOid": "1ae5b33"
+          },
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-05T18:45:28Z",
+          "updatedAt": "2023-10-05T18:45:29Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "@Sakurann @paulbastian I suggest to just remove \"as a knowledge factor\" as I think PIN is sufficient. ",
+              "createdAt": "2023-10-05T18:45:29Z",
+              "updatedAt": "2023-10-05T18:45:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i-UF_",
+          "commit": {
+            "abbreviatedOid": "1ae5b33"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-05T18:48:44Z",
+          "updatedAt": "2023-10-05T18:48:44Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "> I suggest to just remove \"as a knowledge factor\" as I think PIN is sufficient.\r\n\r\nI edited the suggestion above - please apply it if you are ok with it",
+              "createdAt": "2023-10-05T18:48:44Z",
+              "updatedAt": "2023-10-05T18:48:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i-USZ",
+          "commit": {
+            "abbreviatedOid": "1ae5b33"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-05T18:49:16Z",
+          "updatedAt": "2023-10-05T18:49:17Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "> @Sakurann @paulbastian I suggest to just remove \"as a knowledge factor\" as I think PIN is sufficient.\r\n\r\nsure, but the wallet needs to be defined - ideally in this PR, but for now I opened a separate issue #64 ",
+              "createdAt": "2023-10-05T18:49:17Z",
+              "updatedAt": "2023-10-05T18:49:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i-Uy3",
+          "commit": {
+            "abbreviatedOid": "1ae5b33"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-05T18:50:47Z",
+          "updatedAt": "2023-10-05T18:50:47Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "looks fine to me",
+              "createdAt": "2023-10-05T18:50:47Z",
+              "updatedAt": "2023-10-05T18:50:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJcWsFs5i-aEp",
+          "commit": {
+            "abbreviatedOid": "4f88057"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-05T19:03:56Z",
+          "updatedAt": "2023-10-05T19:03:56Z",
+          "comments": [
+            {
+              "originalPosition": 66,
+              "body": "shouldn't these values be lower cased to match the definitions above? \r\n \r\n",
+              "createdAt": "2023-10-05T19:03:56Z",
+              "updatedAt": "2023-10-05T19:03:56Z"
             }
           ]
         }
@@ -3860,24 +3989,26 @@
       "id": "PR_kwDOJcWsFs5VVH76",
       "title": "sd-jwt vc profile for oid4vc",
       "url": "https://github.com/vcstuff/oid4vc-haip-sd-jwt-vc/pull/56",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tlodderstedt",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-07-12T16:17:47Z",
-      "updatedAt": "2023-10-04T16:04:27Z",
+      "updatedAt": "2023-10-05T18:45:50Z",
       "baseRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "29d00a4a2bcf184f421fe0a9e3fbe794d0bd0422",
       "headRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
       "headRefName": "sd-jwt-profile",
-      "headRefOid": "ba10db9ff8bc19e70a00d848d3c88b0c722f9201",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "cfe473aa1065c4438635c88970ed1f1ad7d268f8",
+      "closedAt": "2023-10-05T18:45:50Z",
+      "mergedAt": "2023-10-05T18:45:50Z",
+      "mergedBy": "tlodderstedt",
+      "mergeCommit": {
+        "oid": "31d589cc6f7d36073c3c9ed19d62ef5b3f49f41a"
+      },
       "comments": [
         {
           "author": "TakahikoKawasaki",
@@ -4447,7 +4578,7 @@
             "abbreviatedOid": "66d4d8c"
           },
           "author": "TimoGlastra",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2023-09-22T08:55:39Z",
@@ -4467,7 +4598,7 @@
             "abbreviatedOid": "66d4d8c"
           },
           "author": "TimoGlastra",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2023-09-22T09:01:22Z",
