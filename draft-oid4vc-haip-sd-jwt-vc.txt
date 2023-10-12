@@ -6,7 +6,7 @@ OpenID Connect                                                 K. Yasuda
                                                                Microsoft
                                                           T. Lodderstedt
                                                                  yes.com
-                                                          8 October 2023
+                                                         12 October 2023
 
 
     OpenID4VC High Assurance Interoperability Profile with SD-JWT VC
@@ -191,7 +191,7 @@ Table of Contents
    *  MUST support both pre-auth code flow and authorization code flow.
 
    *  MUST support protocol extensions for SD-JWT VC credential format
-      profile as defined in this specification (##vc_sd_jwt_profile).
+      profile as defined in this specification Section 7.2.
 
    *  MUST support sender-constrained Tokens using a mechanism as
       defined in [I-D.ietf-oauth-dpop].
@@ -378,7 +378,7 @@ Table of Contents
 5.  OpenID for Verifiable Presentations
 
    *  MUST support protocol extensions for SD-JWT VC credential format
-      profile as defined in this specification (##vc_sd_jwt_profile).
+      profile as defined in this specification Section 7.2.
 
    *  As a way to invoke the Wallet, at least a custom URL scheme
       haip:// MUST be supported.  Implementations MAY support other ways
