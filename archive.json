@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-08T00:26:41.829233+00:00",
+  "timestamp": "2023-10-15T00:26:50.006582+00:00",
   "repo": "vcstuff/oid4vc-haip-sd-jwt-vc",
   "labels": [
     {
@@ -1353,6 +1353,22 @@
       "body": "A place to point to is probably https://openid.github.io/OpenID4VCI/openid-4-verifiable-credential-issuance-1_0.html#section-2-3.30",
       "createdAt": "2023-10-04T20:45:02Z",
       "updatedAt": "2023-10-04T20:45:02Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 65,
+      "id": "I_kwDOJcWsFs5zp3Vw",
+      "title": "Key resolution for status list",
+      "url": "https://github.com/vcstuff/oid4vc-haip-sd-jwt-vc/issues/65",
+      "state": "OPEN",
+      "author": "c2bo",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Section 7.1. defines supported key resolution mechanisms to validate issued credentials. We do not define a mechanism to validate the status list with currently.\r\n\r\nImho, we should re-use the same key resolution mechanism that is used by the issuer - makes things easier to manage and implement. If people agree with this, I will create a PR to add a small text stating to re-use the same mechanism for status list validation.",
+      "createdAt": "2023-10-12T16:27:26Z",
+      "updatedAt": "2023-10-12T16:46:38Z",
       "closedAt": null,
       "comments": []
     }
