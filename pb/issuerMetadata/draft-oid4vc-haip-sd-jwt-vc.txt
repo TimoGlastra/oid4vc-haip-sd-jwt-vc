@@ -600,31 +600,32 @@ Table of Contents
          a JSON object that includes a following non-exhaustive list of
          parameters defined by this specification:
 
-      -  mandatory: OPTIONAL.  Boolean which when set to true indicates
-         the claim MUST be present in the issued Credential.  If the
-         mandatory property is omitted its default should be assumed to
-         be false.
+         o  mandatory: OPTIONAL.  Boolean which when set to true
+            indicates the claim MUST be present in the issued
+            Credential.  If the mandatory property is omitted its
+            default should be assumed to be false.
 
-      -  value_type: OPTIONAL.  String value determining type of value
-         of the claim.  A non-exhaustive list of valid values defined by
-         this specification are string, number, and image media types
-         such as image/jpeg as defined in IANA media type registry for
-         images (https://www.iana.org/assignments/media-types/media-
-         types.xhtml#image (https://www.iana.org/assignments/media-
-         types/media-types.xhtml#image)).
+         o  value_type: OPTIONAL.  String value determining type of
+            value of the claim.  A non-exhaustive list of valid values
+            defined by this specification are string, number, and image
+            media types such as image/jpeg as defined in IANA media type
+            registry for images (https://www.iana.org/assignments/media-
+            types/media-types.xhtml#image
+            (https://www.iana.org/assignments/media-types/media-
+            types.xhtml#image)).
 
-      -  display: OPTIONAL.  An array of objects, where each object
-         contains display properties of a certain claim in the
-         Credential for a certain language.  Below is a non-exhaustive
-         list of valid parameters that MAY be included:
+         o  display: OPTIONAL.  An array of objects, where each object
+            contains display properties of a certain claim in the
+            Credential for a certain language.  Below is a non-
+            exhaustive list of valid parameters that MAY be included:
 
-         o  name: OPTIONAL.  String value of a display name for the
-            claim.
+            +  name: OPTIONAL.  String value of a display name for the
+               claim.
 
-         o  locale: OPTIONAL.  String value that identifies language of
-            this object represented as language tag values defined in
-            BCP47 [RFC5646].  There MUST be only one object for each
-            language identifier.
+            +  locale: OPTIONAL.  String value that identifies language
+               of this object represented as language tag values defined
+               in BCP47 [RFC5646].  There MUST be only one object for
+               each language identifier.
 
    *  order: OPTIONAL.  An array of claims.display.name values that
       lists them in the order they should be displayed by the Wallet.
@@ -633,6 +634,7 @@ Table of Contents
    credentials_supported parameter of Credential format vc+sd-jwt.
 
    {
+       "id" : "IdentityCredential_SD-JWT-VC",
        "format": "vc+sd-jwt",
        "scope": "IdentityCredential_SD-JWT-VC",
        "cryptographic_binding_methods_supported": [
@@ -714,12 +716,7 @@ Table of Contents
    {
        "credential_issuer": "https://credential-issuer.example.com",
        "credentials": [
-           {
-               "format": "vc+sd-jwt",
-               "credential_definition": {
-                   "type": "IdentityCredential"
-               }
-           }
+           "IdentityCredential_SD-JWT-VC"
        ],
        "grants": {
            "authorization_code": {
