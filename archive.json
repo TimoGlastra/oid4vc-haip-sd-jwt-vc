@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-26T00:23:37.099373+00:00",
+  "timestamp": "2023-11-02T00:24:31.233338+00:00",
   "repo": "vcstuff/oid4vc-haip-sd-jwt-vc",
   "labels": [
     {
@@ -1371,6 +1371,78 @@
       "updatedAt": "2023-10-12T16:46:38Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 67,
+      "id": "I_kwDOJcWsFs51cvEL",
+      "title": "define typ value wallet-attestation+jwt",
+      "url": "https://github.com/vcstuff/oid4vc-haip-sd-jwt-vc/issues/67",
+      "state": "OPEN",
+      "author": "tlodderstedt",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-31T13:23:44Z",
+      "updatedAt": "2023-10-31T13:23:44Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 68,
+      "id": "I_kwDOJcWsFs51cxG9",
+      "title": "replace cryptographic_binding_methods_supported 'did:example' value by 'jwk`",
+      "url": "https://github.com/vcstuff/oid4vc-haip-sd-jwt-vc/issues/68",
+      "state": "OPEN",
+      "author": "tlodderstedt",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-31T13:28:04Z",
+      "updatedAt": "2023-10-31T13:28:04Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 69,
+      "id": "I_kwDOJcWsFs51cy7N",
+      "title": "first paragraph section 8 needs clarification",
+      "url": "https://github.com/vcstuff/oid4vc-haip-sd-jwt-vc/issues/69",
+      "state": "OPEN",
+      "author": "tlodderstedt",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "What is the meaning of the first list (e.g. SD-JWT VC)? I guess it is a list of the places where ES256 must be used. I suggest to spell that out and also to spell the acronyms out (w.g. HB JWT).",
+      "createdAt": "2023-10-31T13:31:48Z",
+      "updatedAt": "2023-10-31T13:31:48Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 71,
+      "id": "I_kwDOJcWsFs51lLLK",
+      "title": "OpenID4VP: Replace redirect_uri with response_uri for Response Mode direct_post",
+      "url": "https://github.com/vcstuff/oid4vc-haip-sd-jwt-vc/issues/71",
+      "state": "OPEN",
+      "author": "cryptphil",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The HAIP specifies in Section 5 for OpenID4VP that:\r\n\r\n> Response mode MUST be direct_post with redirect_uri as defined in Section 6.2 of [[OIDF.OID4VP](https://vcstuff.github.io/oid4vc-haip-sd-jwt-vc/draft-oid4vc-haip-sd-jwt-vc.html#OIDF.OID4VP)].\r\n\r\nHowever, `redirect_uri` must not be present when the Response Mode is `direct_post` as described in the OpenID4VP specs in Section [6.2-7.2](https://openid.github.io/OpenID4VP/openid-4-verifiable-presentations-wg-draft.html#section-6.2-7.2):\r\n\r\n> If the redirect_uri Authorization Request parameter is present when the Response Mode is direct_post, the Wallet MUST return an invalid_request Authorization Response error.\r\n\r\nTherefore, I assume that the HAIP should use `response_uri` instead of `redirect_uri` which would align with the OpenID4VP specs.",
+      "createdAt": "2023-11-01T16:15:22Z",
+      "updatedAt": "2023-11-01T16:39:06Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think you are correct.\r\nTo complicate things, the 200 Response to this may again include a `redirect_uri` see: https://openid.github.io/OpenID4VP/openid-4-verifiable-presentations-wg-draft.html#section-6.2-18.2",
+          "createdAt": "2023-11-01T16:39:06Z",
+          "updatedAt": "2023-11-01T16:39:06Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -5460,7 +5532,7 @@
       "labels": [],
       "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses # <!-- Issue # here -->\r\n\r\n## \ud83d\udcd1 Description\r\nSome fixes and changes according to https://github.com/openid/OpenID4VCI/pull/86\r\n\r\n<!-- You can also choose to add a list of changes and if they have been completed or not by using the markdown to-do list syntax\r\n- [ ] Not Completed\r\n- [x] Completed\r\n-->\r\n\r\n## Preview Link\r\n\r\n<!-- Update the link below to provide reviewers with a convenient link to view a rendered version of the PR-->\r\n<!-- In general the link should be of the form https://github.com/<repo-name>/<branch-name>/<draft-name>.html-->\r\n\r\n[click here for rendered preview of PR](https://github.com/<repo-name>/<branch-name>/<draft-name>.html)",
       "createdAt": "2023-10-24T12:31:04Z",
-      "updatedAt": "2023-10-24T12:31:04Z",
+      "updatedAt": "2023-10-31T13:55:21Z",
       "baseRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "05f20e75cbab9d84dc52458cfaa9ce589b76e0b6",
@@ -5472,7 +5544,68 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJcWsFs5ltTCt",
+          "commit": {
+            "abbreviatedOid": "a80caf4"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-31T13:55:21Z",
+          "updatedAt": "2023-10-31T13:55:21Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "is type really needed?",
+              "createdAt": "2023-10-31T13:55:21Z",
+              "updatedAt": "2023-10-31T13:55:21Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 70,
+      "id": "PR_kwDOJcWsFs5ePSCc",
+      "title": "Update status list reference",
+      "url": "https://github.com/vcstuff/oid4vc-haip-sd-jwt-vc/pull/70",
+      "state": "OPEN",
+      "author": "c2bo",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Changes the reference to the adopted datatracker ID\r\n",
+      "createdAt": "2023-10-31T14:16:41Z",
+      "updatedAt": "2023-10-31T14:29:24Z",
+      "baseRepository": "vcstuff/oid4vc-haip-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "05f20e75cbab9d84dc52458cfaa9ce589b76e0b6",
+      "headRepository": "c2bo/oid4vc-haip-sd-jwt-vc",
+      "headRefName": "status-list-reference",
+      "headRefOid": "0d1a4e40b069c6107ab66e3fb18352c180bdf129",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJcWsFs5ltoVB",
+          "commit": {
+            "abbreviatedOid": "0d1a4e4"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-31T14:29:24Z",
+          "updatedAt": "2023-10-31T14:29:24Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
